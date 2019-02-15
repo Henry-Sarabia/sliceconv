@@ -5,16 +5,6 @@ import (
 	"strconv"
 )
 
-// Itoa converts the provided integers into their respective string representations
-// in base 10.
-func Itoa(ints ...int) []string {
-	var str []string
-	for _, i := range ints {
-		str = append(str, strconv.Itoa(i))
-	}
-	return str
-}
-
 // Atoi converts the provided strings into their respective base 10 integer
 // representations. If any of the strings are not valid digits, an error is returned.
 func Atoi(str ...string) ([]int, error) {
@@ -29,4 +19,14 @@ func Atoi(str ...string) ([]int, error) {
 	}
 
 	return ints, nil
+}
+
+// Itoa converts the provided integers into their respective string representations
+// in base 10.
+func Itoa(ints ...int) []string {
+	var str []string
+	for _, i := range ints {
+		str = append(str, strconv.Itoa(i))
+	}
+	return str
 }
