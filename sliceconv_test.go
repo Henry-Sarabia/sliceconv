@@ -6,28 +6,6 @@ import (
 	"testing"
 )
 
-func TestItoa(t *testing.T) {
-	tests := []struct {
-		name        string
-		ints        []int
-		wantStrings []string
-	}{
-		{"Nil slice", nil, nil},
-		{"Empty int slice", []int{}, nil},
-		{"Single int", []int{1}, []string{"1"}},
-		{"Multiple ints", []int{1, 2, 3}, []string{"1", "2", "3"}},
-	}
-	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			s := Itoa(test.ints...)
-
-			if !reflect.DeepEqual(s, test.wantStrings) {
-				t.Errorf("got: <%v>, want: <%v>", s, test.wantStrings)
-			}
-		})
-	}
-}
-
 func TestAtoi(t *testing.T) {
 	tests := []struct {
 		name     string
@@ -49,6 +27,28 @@ func TestAtoi(t *testing.T) {
 
 			if !reflect.DeepEqual(ints, test.wantInts) {
 				t.Errorf("got: <%v>, want: <%v>", ints, test.wantInts)
+			}
+		})
+	}
+}
+
+func TestItoa(t *testing.T) {
+	tests := []struct {
+		name        string
+		ints        []int
+		wantStrings []string
+	}{
+		{"Nil slice", nil, nil},
+		{"Empty int slice", []int{}, nil},
+		{"Single int", []int{1}, []string{"1"}},
+		{"Multiple ints", []int{1, 2, 3}, []string{"1", "2", "3"}},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			s := Itoa(test.ints...)
+
+			if !reflect.DeepEqual(s, test.wantStrings) {
+				t.Errorf("got: <%v>, want: <%v>", s, test.wantStrings)
 			}
 		})
 	}
