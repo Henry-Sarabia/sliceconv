@@ -20,7 +20,7 @@ func TestAtoi(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			ints, err := Atoi(test.strings...)
+			ints, err := Atoi(test.strings)
 			if errors.Cause(err) != test.wantErr {
 				t.Errorf("got: <%v>, want: <%v>", errors.Cause(err), test.wantErr)
 			}
@@ -45,7 +45,7 @@ func TestItoa(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			s := Itoa(test.ints...)
+			s := Itoa(test.ints)
 
 			if !reflect.DeepEqual(s, test.wantStrings) {
 				t.Errorf("got: <%v>, want: <%v>", s, test.wantStrings)
