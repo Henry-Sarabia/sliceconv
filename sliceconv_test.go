@@ -39,9 +39,9 @@ func TestAtoi(t *testing.T) {
 
 func TestItoa(t *testing.T) {
 	tests := []struct {
-		name        string
-		ints        []int
-		wantStrings []string
+		name    string
+		ints    []int
+		wantStr []string
 	}{
 		{"Nil slice", nil, nil},
 		{"Empty int slice", []int{}, nil},
@@ -52,8 +52,8 @@ func TestItoa(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			s := Itoa(test.ints)
 
-			if !reflect.DeepEqual(s, test.wantStrings) {
-				t.Errorf("got: <%v>, want: <%v>", s, test.wantStrings)
+			if !reflect.DeepEqual(s, test.wantStr) {
+				t.Errorf("got: <%v>, want: <%v>", s, test.wantStr)
 			}
 		})
 	}
@@ -90,9 +90,9 @@ func TestAtof(t *testing.T) {
 
 func TestFtoa(t *testing.T) {
 	tests := []struct {
-		name        string
-		flts        []float64
-		wantStrings []string
+		name    string
+		flts    []float64
+		wantStr []string
 	}{
 		{"Nil slice", nil, nil},
 		{"Empty float slice", []float64{}, nil},
@@ -103,8 +103,8 @@ func TestFtoa(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			s := Ftoa(test.flts)
 
-			if !reflect.DeepEqual(s, test.wantStrings) {
-				t.Errorf("got: <%v>, want: <%v>", s, test.wantStrings)
+			if !reflect.DeepEqual(s, test.wantStr) {
+				t.Errorf("got: <%v>, want: <%v>", s, test.wantStr)
 			}
 		})
 	}
