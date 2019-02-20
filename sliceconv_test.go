@@ -87,3 +87,25 @@ func TestAtof(t *testing.T) {
 		})
 	}
 }
+
+func TestFtoa(t *testing.T) {
+	tests := []struct {
+		name        string
+		flts        []float64
+		wantStrings []string
+	}{
+		{"Nil slice", nil, nil},
+		{"Empty float slice", []float64{}, nil},
+		{"Single float", []float64{1.5}, []string{"1.5"}},
+		{"Multiple floats", []float64{1.25, 2.125, 3.0625, 4.03125, 5.015625}, []string{"1.25", "2.125", "3.0625", "4.03125", "5.015625"}},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			s := Ftoa(test.flts)
+
+			if !reflect.DeepEqual(s, test.wantStrings) {
+				t.Errorf("got: <%v>, want: <%v>", s, test.wantStrings)
+			}
+		})
+	}
+}
