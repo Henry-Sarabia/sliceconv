@@ -30,3 +30,19 @@ func Itoa(ints []int) []string {
 	}
 	return str
 }
+
+// Atof converts the provided strings into their respective float representations.
+// If any of the strings are not valid floats, an error is returned.
+func Atof(str []string) ([]float64, error) {
+	var flts []float64
+	for _, s := range str {
+		f, err := strconv.ParseFloat(s, 64)
+		if err != nil {
+			return nil, errors.Wrap(err, "one or more strings could not be converted to type float64")
+		}
+
+		flts = append(flts, f)
+	}
+
+	return flts, nil
+}
