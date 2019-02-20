@@ -58,3 +58,32 @@ func TestItoa(t *testing.T) {
 		})
 	}
 }
+
+func TestAtof(t *testing.T) {
+	tests := []struct {
+		name     string
+		strings  []string
+		wantFlts []float64
+		wantErr  error
+	}{
+		{"Nil slice", nil, nil, nil},
+		{"Empty string slice", []string{}, nil, nil},
+		{"Single valid string", []string{"0.000000000000001"}, []float64{0.000000000000001}, nil},
+		{"Multiple valid strings", []string{"1.25", "2.125", "3.0625", "4.03125", "5.015625"}, []float64{1.25, 2.125, 3.0625, 4.03125, 5.015625}, nil},
+		{"Single invalid string", []string{"abc"}, nil, &strconv.NumError{Func: "ParseFloat", Num: "abc", Err: strconv.ErrSyntax}},
+		{"Multiple invalid strings", []string{"abc", "def", "ghi"}, nil, &strconv.NumError{Func: "ParseFloat", Num: "abc", Err: strconv.ErrSyntax}},
+		{"Mixed valid and invalid strings", []string{"1.25", "abc"}, nil, &strconv.NumError{Func: "ParseFloat", Num: "abc", Err: strconv.ErrSyntax}},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			flts, err := Atof(test.strings)
+			if !reflect.DeepEqual(errors.Cause(err), test.wantErr) {
+				t.Errorf("got: <%v>, want: <%v>", errors.Cause(err), test.wantErr)
+			}
+
+			if !reflect.DeepEqual(flts, test.wantFlts) {
+				t.Errorf("got: <%v>, want: <%v>", flts, test.wantFlts)
+			}
+		})
+	}
+}
