@@ -40,7 +40,7 @@ if err != nil {
 }
 
 max := findMax(ints)
-// 100
+// output: 100
 ```
 
 Be aware that the `sliceconv.Atoi` function fulfills the same contract as its counterpart 
@@ -59,10 +59,50 @@ scores := []int{98, 85, 100, 76, 92}
 
 str := sliceconv.Itoa(scores)
 report := formatReport(str)
-// student_1: 98, student_2: 85, ..., student_5: 92
+// output: student_1: 98, student_2: 85, ..., student_5: 92
 ```
 
 Similarly to `sliceconv.Atoi`, the `sliceconv.Itoa` function assumes the integers are in base 10.
+
+### Strings to Floats
+
+Sticking to the test score example, assume you have a list of test scores as a slice of strings.
+You mean to find the average score by passing the list into an averaging function with the signature
+`findAvg([]float64) float64`. Taking advantage of sliceconv, you can convert the entire list of strings
+into a slice of floats.
+
+```go
+scores := []string{"98.5", "85.1", "100", "76.9", "92.3"}
+
+flts, err := sliceconv.Atof(scores)
+if err != nil {
+	// handle error
+}
+
+avg := findAvg(flts)
+// output: 90.56
+```
+
+Be aware that the `sliceconv.Atof` function assumes the stringified floats have a bitsize of 64.
+
+### Floats to Strings
+
+Again, assume you have a list of test scores but as a slice of float64s. You mean to format a class
+report card by passing the list of scores into a `formatReport` function. The function has the following
+signature: `formatReport([]string) string`. Using sliceconv, simply convert the slice of float64s into
+a slice of strings for the `formatReport` function.
+
+```go
+scores := []float64{98.5, 85.1, 100, 76.9, 92.3}
+
+str := sliceconv.Ftoa(scores)
+report := formatReport(str)
+// output: student_1: 98.5, student_2: 85.1, ..., student_5: 92.3
+```
+
+Please take note that the `sliceconv.Ftoa` function will fulfill the following contract: the string
+representation of the provided floats will have no exponent, the smallest precision needed to properly
+represent the number, and a bitsize of 64.
 
 ## Contributions
 
