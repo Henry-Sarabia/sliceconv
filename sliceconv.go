@@ -61,3 +61,33 @@ func Ftoa(flts []float64) []string {
 
 	return str
 }
+
+// Atob converts the provided strings into their respective bool representations.
+// Valid strings include "1", "t", "T", "TRUE", "true", "True", 0, "f", "F",
+// "FALSE", "false", and "False". If any of the strings are not valid, an error
+// is returned.
+func Atob(str []string) ([]bool, error) {
+	var bools []bool
+
+	for _, s := range str {
+		b, err := strconv.ParseBool(s)
+		if err != nil {
+			return nil, errors.Wrap(err, "one or more strings could not be converted to type bool")
+		}
+
+		bools = append(bools, b)
+	}
+
+	return bools, nil
+}
+
+// Btoa converts the provided bools into their respective string representations.
+func Btoa(bools []bool) []string {
+	var str []string
+
+	for _, b := range bools {
+		str = append(str, strconv.FormatBool(b))
+	}
+
+	return str
+}
