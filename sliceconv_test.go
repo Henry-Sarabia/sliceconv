@@ -109,3 +109,69 @@ func TestFtoa(t *testing.T) {
 		})
 	}
 }
+
+func TestAtob(t *testing.T) {
+	tests := []struct {
+		name      string
+		strings   []string
+		wantBools []bool
+		wantErr   error
+	}{
+		{"String '1'", []string{"1"}, []bool{true}, nil},
+		{"String 't", []string{"t"}, []bool{true}, nil},
+		{"String 'T'", []string{"T"}, []bool{true}, nil},
+		{"String 'TRUE'", []string{"TRUE"}, []bool{true}, nil},
+		{"String 'true'", []string{"true"}, []bool{true}, nil},
+		{"String 'True'", []string{"True"}, []bool{true}, nil},
+		{"String '0'", []string{"0"}, []bool{false}, nil},
+		{"String 'f'", []string{"f"}, []bool{false}, nil},
+		{"String 'F'", []string{"F"}, []bool{false}, nil},
+		{"String 'FALSE'", []string{"FALSE"}, []bool{false}, nil},
+		{"String 'false'", []string{"false"}, []bool{false}, nil},
+		{"String 'False'", []string{"False"}, []bool{false}, nil},
+		{"Nil slice", nil, nil, nil},
+		{"Empty string slice", []string{}, nil, nil},
+		{"Single valid string", []string{"true"}, []bool{true}, nil},
+		{"Multiple valid strings", []string{"1", "0", "t", "f"}, []bool{true, false, true, false}, nil},
+		{"Single invalid string", []string{"invalid"}, nil, &strconv.NumError{Func: "ParseBool", Num: "invalid", Err: strconv.ErrSyntax}},
+		{"Multiple invalid strings", []string{"invalid", "trueeee", "faaaalse"}, nil, &strconv.NumError{Func: "ParseBool", Num: "invalid", Err: strconv.ErrSyntax}},
+		{"Mixed valid and invalid strings", []string{"true", "invalid", "false"}, nil, &strconv.NumError{Func: "ParseBool", Num: "invalid", Err: strconv.ErrSyntax}},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			bools, err := Atob(test.strings)
+			if !reflect.DeepEqual(errors.Cause(err), test.wantErr) {
+				t.Errorf("got: <%v>, want: <%v>", errors.Cause(err), test.wantErr)
+			}
+
+			if !reflect.DeepEqual(bools, test.wantBools) {
+				t.Errorf("got: <%v>, want: <%v>", bools, test.wantBools)
+			}
+		})
+	}
+}
+
+func TestBtoa(t *testing.T) {
+	tests := []struct {
+		name    string
+		bools   []bool
+		wantStr []string
+	}{
+		{"Nil slice", nil, nil},
+		{"Empty bool slice", []bool{}, nil},
+		{"Single true", []bool{true}, []string{"true"}},
+		{"Multiple true", []bool{true, true, true}, []string{"true", "true", "true"}},
+		{"Single false", []bool{false}, []string{"false"}},
+		{"Multiple false", []bool{false, false, false}, []string{"false", "false", "false"}},
+		{"Mixed true and false", []bool{true, false, true, false}, []string{"true", "false", "true", "false"}},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			s := Btoa(test.bools)
+
+			if !reflect.DeepEqual(s, test.wantStr) {
+				t.Errorf("got: <%v>, want: <%v>", s, test.wantStr)
+			}
+		})
+	}
+}
