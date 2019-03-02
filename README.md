@@ -3,6 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/Henry-Sarabia/sliceconv?status.svg)](https://godoc.org/github.com/Henry-Sarabia/sliceconv) [![Build Status](https://travis-ci.com/Henry-Sarabia/sliceconv.svg?branch=master)](https://travis-ci.com/Henry-Sarabia/sliceconv) [![Coverage Status](https://coveralls.io/repos/github/Henry-Sarabia/sliceconv/badge.svg?branch=master)](https://coveralls.io/github/Henry-Sarabia/sliceconv?branch=master) [![Go Report Card](https://goreportcard.com/badge/github.com/Henry-Sarabia/sliceconv)](https://goreportcard.com/report/github.com/Henry-Sarabia/sliceconv)
 
 Sliceconv implements conversions to and from string representations of primitive types on entire slices.
+The package supports types int, float64, bool, and string.
 This package takes its cue from the Golang standard library's [strconv](https://golang.org/pkg/strconv/). 
 
 ## Installation
