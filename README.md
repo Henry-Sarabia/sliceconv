@@ -104,6 +104,54 @@ Please take note that the `sliceconv.Ftoa` function will fulfill the following c
 representation of the provided floats will have no exponent, the smallest precision needed to properly
 represent the number, and a bitsize of 64.
 
+### Strings to Bools
+
+Let's assume a slightly more contrived example to get things going. Assume you have student's answer
+to a question asking them to list out the truth table for a logical conjuction. The answer is provided
+as a two dimensional slice. You have a function `checkTable` but it expects a 2D slice of bools, not 
+strings. To resolve this, you can simply iterate through the slices and pass them each into one of 
+the sliceconv functions. 
+```go
+str := []string{
+	[]string{"T", "T", "T"},
+    []string{"T", "F", "F"},
+    []string{"F", "T", "F"},
+    []string{"F", "F", "F"},
+}
+
+var bools []bool
+for _, s := range str {
+	b, err := sliceconv.Atob(s) // conversion happens here
+	if err != nil {
+		// handle error
+	}
+	
+	bools = append(bools, b)
+}
+
+ok := checkTable(bools)
+// output: true
+```
+
+As you can see from the example, the `Atob` function isn't limited to the straightfoward "true"
+and "false" strings. In fact, `Atob` can accept the following: "1", "t", "T", "TRUE", "true", 
+"True", 0, "f", "F", "FALSE", "false", and "False". 
+
+### Bools to Strings
+
+For this example, suppose you have the response to a true or false survey for a single student. You 
+have the answers in the form of a slice of bools. You mean to display these answers in a report using
+a function with the signature `formatReport([]string) string`. Because this function only accepts a 
+slice of strings, you will need to use the sliceconv package to convert your slice of bools.
+
+```go
+bools := []bool{true, false, false, true, true}
+
+str := sliceconv.Btoa(bools)
+report := formatReport(str)
+// output: Q1: true, Q2: false, Q3: false, Q4: true, Q5: true
+```
+
 ## Contributions
 
 If you would like to contribute to this project, please adhere to the following
