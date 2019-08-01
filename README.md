@@ -1,6 +1,9 @@
 # sliceconv
 
-[![GoDoc](https://godoc.org/github.com/Henry-Sarabia/sliceconv?status.svg)](https://godoc.org/github.com/Henry-Sarabia/sliceconv) [![Build Status](https://travis-ci.com/Henry-Sarabia/sliceconv.svg?branch=master)](https://travis-ci.com/Henry-Sarabia/sliceconv) [![Coverage Status](https://coveralls.io/repos/github/Henry-Sarabia/sliceconv/badge.svg?branch=master)](https://coveralls.io/github/Henry-Sarabia/sliceconv?branch=master) [![Go Report Card](https://goreportcard.com/badge/github.com/Henry-Sarabia/sliceconv)](https://goreportcard.com/report/github.com/Henry-Sarabia/sliceconv)
+[![GoDoc](https://godoc.org/github.com/Henry-Sarabia/sliceconv?status.svg)](https://godoc.org/github.com/Henry-Sarabia/sliceconv) 
+[![Build Status](https://travis-ci.com/Henry-Sarabia/sliceconv.svg?branch=master)](https://travis-ci.com/Henry-Sarabia/sliceconv) 
+[![Coverage Status](https://coveralls.io/repos/github/Henry-Sarabia/sliceconv/badge.svg?branch=master)](https://coveralls.io/github/Henry-Sarabia/sliceconv?branch=master) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/Henry-Sarabia/sliceconv)](https://goreportcard.com/report/github.com/Henry-Sarabia/sliceconv)
 
 Sliceconv implements conversions to and from string representations of primitive types on entire slices.
 The package supports types int, float64, bool, and string.
@@ -8,13 +11,12 @@ This package takes its cue from the Golang standard library's [strconv](https://
 
 ## Installation
 
-If you do not have Go installed yet, you can find installation instructions 
-[here](https://golang.org/doc/install).
+If you do not have Go installed yet, you can find installation instructions [here](https://golang.org/doc/install).
 
 To pull the most recent version of sliceconv, use `go get`.
 
 ```
-go get github.com/Henry-Sarabia/sliceconv
+go get -u github.com/Henry-Sarabia/sliceconv
 ```
 
 Then import the package into your project.
@@ -27,10 +29,10 @@ import "github.com/Henry-Sarabia/sliceconv"
 
 ### Strings to Integers
 
-As an example, assume you have a list of test scores as a slice of strings. You mean to find the 
-highest score by passing the list into a `findMax` function. Unfortunately, the function has the signature 
-`findMax([]int) int`. Using sliceconv, simply convert the slice of strings into a slice of ints to
-resolve the issue.
+As an example, assume you have a list of test scores as a slice of strings. 
+You mean to find the highest score by passing the list into a `findMax` function.
+Unfortunately, the function has the signature `findMax([]int) int`.
+Using sliceconv, simply convert the slice of strings into a slice of ints to resolve the issue.
 
 ```go
 scores := []string{"98", "85", "100", "76", "92"}
@@ -44,16 +46,16 @@ max := findMax(ints)
 // output: 100
 ```
 
-Be aware that the `sliceconv.Atoi` function fulfills the same contract as its counterpart 
-`strconv.Atoi`. That is to say, the `Atoi` functions treat the strings as integers in base 10 and
-will return an error if any of the resulting integers cannot fit into the regular `int` type.
+Be aware that the `sliceconv.Atoi` function fulfills the same contract as its counterpart `strconv.Atoi`.
+That is to say, the `Atoi` functions treat the strings as integers in base 10 and will return an error if 
+any of the resulting integers cannot fit into the regular `int` type.
 
 ### Integers to Strings
 
-This time around, assume you still have a list of test scores but as a slice of ints. You mean to
-format a class report card by passing the list of scores into a `formatReport` function. With a 
-streak of bad luck, the function has the signature `formatReport([]string) string`. With sliceconv,
-you can just convert the slice of ints into a slice of strings to satisfy the requirements.
+This time around, assume you still have a list of test scores but as a slice of ints.
+You mean to format a class report card by passing the list of scores into a `formatReport` function.
+With a streak of bad luck, the function has the signature `formatReport([]string) string`.
+With sliceconv, you can just convert the slice of ints into a slice of strings to satisfy the requirements.
 
 ```go
 scores := []int{98, 85, 100, 76, 92}
@@ -68,9 +70,8 @@ Similarly to `sliceconv.Atoi`, the `sliceconv.Itoa` function assumes the integer
 ### Strings to Floats
 
 Sticking to the test score example, assume you have a list of test scores as a slice of strings.
-You mean to find the average score by passing the list into an averaging function with the signature
-`findAvg([]float64) float64`. Taking advantage of sliceconv, you can convert the entire list of strings
-into a slice of floats.
+You mean to find the average score by passing the list into an averaging function with the signature `findAvg([]float64) float64`.
+Taking advantage of sliceconv, you can convert the entire list of strings into a slice of floats.
 
 ```go
 scores := []string{"98.5", "85.1", "100", "76.9", "92.3"}
@@ -88,10 +89,10 @@ Be aware that the `sliceconv.Atof` function assumes the stringified floats have 
 
 ### Floats to Strings
 
-Again, assume you have a list of test scores but as a slice of float64s. You mean to format a class
-report card by passing the list of scores into a `formatReport` function. The function has the following
-signature: `formatReport([]string) string`. Using sliceconv, simply convert the slice of float64s into
-a slice of strings for the `formatReport` function.
+Again, assume you have a list of test scores but as a slice of float64s.
+You mean to format a class report card by passing the list of scores into a `formatReport` function.
+The function has the following signature: `formatReport([]string) string`. 
+Using sliceconv, simply convert the slice of float64s into a slice of strings for the `formatReport` function.
 
 ```go
 scores := []float64{98.5, 85.1, 100, 76.9, 92.3}
@@ -107,11 +108,12 @@ represent the number, and a bitsize of 64.
 
 ### Strings to Bools
 
-Let's assume a slightly more contrived example to get things going. Assume you have student's answer
-to a question asking them to list out the truth table for a logical conjuction. The answer is provided
-as a two dimensional slice. You have a function `checkTable` but it expects a 2D slice of bools, not 
-strings. To resolve this, you can simply iterate through the slices and pass them each into one of 
-the sliceconv functions. 
+Let's assume a slightly more contrived example to get things going.
+Assume you have student's answer to a question asking them to list out the truth table for a logical conjuction.
+The answer is provided as a two dimensional slice.
+You have a function `checkTable` but it expects a 2D slice of bools, not strings.
+To resolve this, you can simply iterate through the slices and pass them each into one of the sliceconv functions. 
+
 ```go
 str := []string{
 	[]string{"T", "T", "T"},
@@ -135,8 +137,8 @@ ok := checkTable(bools)
 ```
 
 As you can see from the example, the `Atob` function isn't limited to the straightfoward "true"
-and "false" strings. In fact, `Atob` can accept the following: "1", "t", "T", "TRUE", "true", 
-"True", 0, "f", "F", "FALSE", "false", and "False". 
+and "false" strings. In fact, `Atob` is **not** case-sensitive and can accept the following: "1", "t", "true", 
+ "0", "f", and "false". 
 
 ### Bools to Strings
 
